@@ -24,7 +24,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+         return view('dashboard.employee.create');
     }
 
     /**
@@ -35,7 +35,8 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        dd($request->all());
     }
 
     /**

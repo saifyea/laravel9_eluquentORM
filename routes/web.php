@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dashboard', function(){
+    return view('dashboard.index');
+});
+
+// Route::namespace('dashboard')->group(function () {
+    Route::resource('employee',EmployeeController::class);
+// });
+
