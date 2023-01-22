@@ -47,7 +47,7 @@ class EmployeeController extends Controller
         Employee::create($request->all());
      
         return redirect()->route('employee.index')
-                        ->with('success','User created successfully.');
+                        ->with('success', 'Successfully completed the action!');;
      
     }
 
@@ -59,7 +59,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        $info=Employee::findOrFail($employee->emp_id);
+        $info=Employee::findOrFail($employee->id);
         return view('dashboard.employee.show',compact('info'));
         //dd($employee->first());
     }
@@ -72,7 +72,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        $info=Employee::findOrFail($employee->emp_id);
+        $info=Employee::findOrFail($employee->id);
         return view('dashboard.employee.edit',compact('info'));
     }
 
@@ -92,7 +92,7 @@ class EmployeeController extends Controller
             'emp_joindate'=>'required'
         ]);
         //dd($updata);
-        Employee::whereId($employee->emp_id)->update($updata);
+        Employee::whereId($employee->id)->update($updata);
         //$employee->update($request->all());
         return redirect()->route('employee.index')->with('success','Employee information updated successfully');
 
@@ -106,7 +106,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        Employee::findOrFail($employee->emp_id)->delete();
-        return redirect()->route('employee.index')->with('danger','Employee information deleteed successfully');
+        Employee::findOrFail($employee->id)->delete();
+        return redirect()->route('employee.index')->with('warning','Employee information deleteed successfully');
     }
 }

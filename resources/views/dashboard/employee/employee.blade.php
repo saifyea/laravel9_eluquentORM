@@ -1,18 +1,12 @@
 @extends('dashboard.master')
 @section('content')
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    
-    @if ($message = Session::get('danger'))
-        <div class="alert alert-danger">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-    
 
+
+
+    
+    <x-alert>
+        <h1>test slots data</h1>
+    </x-alert>
     <!-- Begin Page Content -->
     {{-- <div class="container-fluid"> --}}
 
@@ -52,13 +46,14 @@
                                 <td>{{ $items->emp_designation }}</td>
                                 <td>{{ $items->emp_joindate }}</td>
                                 <td>
-                                    <a href="{{ route('employee.show',$items->emp_id) }}"><button class="btn btn-primary">View</button></a>
-                                    <a href="{{ route('employee.edit',$items->emp_id) }}"><button class="btn btn-success">Eidt</button></a>
-                                    <form action="{{ route('employee.destroy',$items->emp_id) }}" method="post">
+                                    <a href="{{ route('employee.show',$items->id) }}"><button class="btn btn-primary">View</button></a>
+                                    <a href="{{ route('employee.edit',$items->id) }}"><button class="btn btn-success">Eidt</button></a>
+                                    <form action="{{ route('employee.destroy',$items->id) }}" method="post">
                                         @csrf
                                         @method('Delete')
                                         <button class="btn btn-danger" type="submit">Delete</button>
                                     </form>
+                                    
                                 </td>
                             </tr>
                             @endforeach

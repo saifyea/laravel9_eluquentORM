@@ -1,11 +1,10 @@
 <?php
 
-use Brick\Math\BigInteger;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeesTable extends Migration
+class CreateCardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +13,10 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('cards', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('emp_id')->uniqid();
-            $table->string('emp_name');
-            $table->string('emp_designation');
-            $table->string('emp_joindate');
+            $table->foreign('id')->references('id')->on('employees')->onDelete('cascade');
+            $table->bigInteger('card_number');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('cards');
     }
 }

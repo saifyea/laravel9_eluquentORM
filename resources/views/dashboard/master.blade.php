@@ -18,6 +18,9 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.1.0/dist/sweetalert2.min.css">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
@@ -432,6 +435,7 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('js/sweetalert2.all.js') }}"></script>
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -453,6 +457,55 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+
+    <script>
+        @if(session()->has('success'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: '{{ session()->get('success') }}'
+            })
+// Swal.fire({
+//                 icon: 'danger',
+//                 position:'top-end',
+//                 width:200px;
+
+//                 title: '{{ session()->get('success') }}',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             })
+        @endif
+
+        @if(session()->has('warning'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'warning',
+            title: '{{ session()->get('warning') }}'
+            })
+            @endif
+    </script>
 
 </body>
 
