@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class EmployeeController extends Controller
 {
@@ -14,7 +15,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $info=Employee::all();
+        return view('dashboard.employee.employee',compact('info'));
     }
 
     /**
@@ -35,8 +37,18 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        
-        dd($request->all());
+        $request->validate([
+            'emp_id' => 'required',
+            'emp_name' => 'required',
+            'emp_designation' => 'required',
+            'emp_joindate' => 'required',
+        ]);
+    
+        Employee::create($request->all());
+     
+        return redirect()->route('employee.index')
+                        ->with('success','User created successfully.');
+     
     }
 
     /**
@@ -47,7 +59,9 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        $info=Employee::findOrFail($employee->emp_id);
+        return view('dashboard.employee.show',compact('info'));
+        //dd($employee->first());
     }
 
     /**
@@ -58,7 +72,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        $info=Employee::findOrFail($employee->emp_id);
+        return view('dashboard.employee.edit',compact('info'));
     }
 
     /**
@@ -70,7 +85,17 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $updata=$request->validate([
+            'emp_id'=>'required',
+            'emp_name'=>'required',
+            'emp_designation'=>'required',
+            'emp_joindate'=>'required'
+        ]);
+        //dd($updata);
+        Employee::whereId($employee->emp_id)->update($updata);
+        //$employee->update($request->all());
+        return redirect()->route('employee.index')->with('success','Employee information updated successfully');
+
     }
 
     /**
@@ -81,6 +106,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        Employee::findOrFail($employee->emp_id)->delete();
+        return redirect()->route('employee.index')->with('danger','Employee information deleteed successfully');
     }
 }
