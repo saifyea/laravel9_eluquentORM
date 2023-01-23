@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportEmployee;
+use App\Exports\ExportEmployee;
+
 
 class EmployeeController extends Controller
 {
@@ -108,5 +112,19 @@ class EmployeeController extends Controller
     {
         Employee::findOrFail($employee->id)->delete();
         return redirect()->route('employee.index')->with('warning','Employee information deleteed successfully');
+    }
+    
+    public function importView(Request $request){
+        return view('importFile');
+    }
+ 
+    public function import(Request $request){
+        Excel::import(new ImportEmployee,
+                      $request->file('file')->store('files'));
+        return redirect()->back();
+    }
+ 
+    public function exportEmployee(Request $request){
+        return Excel::download(new ExportEmployee, 'Employee.xlsx');
     }
 }

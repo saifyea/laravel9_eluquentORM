@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -26,3 +26,9 @@ Route::get('/dashboard', function(){
     Route::resource('employee',EmployeeController::class);
 // });
 
+Route::get('/file-import',[EmployeeController::class,
+            'importView'])->name('import-view');
+    Route::post('/import',[EmployeeController::class,
+            'import'])->name('import');
+    Route::get('/export-employee',[EmployeeController::class,
+            'exportEmployee'])->name('export-employee');

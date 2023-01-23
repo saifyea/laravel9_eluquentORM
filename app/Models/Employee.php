@@ -14,4 +14,5 @@ class Employee extends Model
         'emp_designation',
         'emp_joindate',
     ];
+    
 }

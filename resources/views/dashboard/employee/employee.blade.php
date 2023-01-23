@@ -22,6 +22,22 @@
                 <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
+                <form action="{{ route('import') }}"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="file"
+                           class="form-control">
+                    <br>
+                    <button class="btn btn-success">
+                          Import User Data
+                       </button>
+                    <a class="btn btn-warning"
+                       href="{{ route('export-employee') }}">
+                              Export User Data
+                      </a>
+                </form>
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
