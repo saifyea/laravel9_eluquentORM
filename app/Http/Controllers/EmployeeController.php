@@ -8,7 +8,7 @@ use Symfony\Contracts\Service\Attribute\Required;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ImportEmployee;
 use App\Exports\ExportEmployee;
-
+use PDF;
 
 class EmployeeController extends Controller
 {
@@ -126,5 +126,29 @@ class EmployeeController extends Controller
  
     public function exportEmployee(Request $request){
         return Excel::download(new ExportEmployee, 'Employee.xlsx');
+    }
+    // Generate PDF
+    public function createPdf() {
+        dd('test');
+        $data = ['title' => 'Welcome to HDTuto.com'];
+        $pdf = PDF::loadView('pdf.invoice', $data);
+        return $pdf->download('invoice.pdf');
+
+       // retreive all records from db
+      $data = Employee::all();
+      // share data to view
+      view()->share('employee',$data);
+      $pdf = PDF::loadView('pdf_view', $data);
+      // download PDF file with download method
+      return $pdf->download('pdf_file.pdf');
+      }
+    
+    Public function testpdf(Employee $employee){
+        //$data = Employee::where('id',11)->get();
+        $data=Employee::findOrFail(11);
+        view()->share('employee',$data);
+        $pdf = PDF::loadview('dashboard.employee.pdf', compact('data'));
+        return $pdf->download('invoice.pdf');
+        //dd('test');
     }
 }

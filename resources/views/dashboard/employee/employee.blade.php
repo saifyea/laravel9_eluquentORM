@@ -36,7 +36,11 @@
                        href="{{ route('export-employee') }}">
                               Export User Data
                       </a>
+                     
+                      <a class="btn btn-primary" href="{{ route('testpdf') }}">Export to PDF</a>
+ 
                 </form>
+               
 
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
