@@ -18,6 +18,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', function () {
     return view('welcome');
 });
+Auth::routes();
+
 Route::get('/dashboard', function(){
     return view('dashboard.index');
 });
@@ -35,3 +37,18 @@ Route::get('/file-import',[EmployeeController::class,'importView'])->name('impor
 Route::post('/import',[EmployeeController::class,'import'])->name('import');
 Route::get('/export-employee',[EmployeeController::class,'exportEmployee'])->name('export-employee');
 
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/logout', function(){
+    Auth::logout();
+    return Redirect::to('login');
+ });
+
+//Route::get('/logout', App\Http\Controllers\HomeController::class, 'logout')->name('logout');
+// Route::group(['middleware' => ['auth']], function() {
+//     /**
+//     * Logout Route
+//     */
+//     Route::get('/logout', App\Http\Controllers\HomeController::class, 'logout')->name('logout');
+//  });
